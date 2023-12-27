@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    background-color: var(--bgSoft);
+    padding: 15px 20px;
+    border-radius: 10px;
+    gap: 12px;
+    width: 100%;
+}
+
+.container:hover {
+    background-color: #2e374a;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title {
+    font-size: 12px;
+}
+
+.number {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.details {
+    font-size: 12px;
+}
+
+.positive {
+    color: rgb(29, 225, 29);
+}

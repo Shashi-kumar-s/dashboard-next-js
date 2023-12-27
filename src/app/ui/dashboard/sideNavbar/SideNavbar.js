@@ -9,6 +9,7 @@ import { IoMdHelpCircle } from "react-icons/io";
 import { IoMdLogOut } from "react-icons/io";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md"
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs"
+import { FaUserCircle } from "react-icons/fa";
 import MenuLink from "./menuLink/MenuLink";
 
 const sideMenu = [
@@ -22,17 +23,17 @@ const sideMenu = [
       },
       {
         title: "Users",
-        path: "/users",
+        path: "/dashboard/users",
         icon: <FaUser />
       },
       {
         title: "Products",
-        path: "/products",
+        path: "/dashboard/products",
         icon: <MdOutlineProductionQuantityLimits />
       },
       {
         title: "Transactions",
-        path: "/transactions",
+        path: "/dashboard/transaction",
         icon: <GrTransaction />
       },
     ]
@@ -42,17 +43,17 @@ const sideMenu = [
     list: [
       {
         title: "Revenue",
-        path: "/revenue",
+        path: "/dashboard/revenue",
         icon: <BsReverseLayoutTextSidebarReverse />
       },
       {
         title: "Reports",
-        path: "/reports",
+        path: "/dashboard/report",
         icon: <TbReport />
       },
       {
         title: "Teams",
-        path: "/teams",
+        path: "/dashboard/teams",
         icon: <PiUsersFourFill />
       },
     ]
@@ -62,17 +63,17 @@ const sideMenu = [
     list: [
       {
         title: "Settings",
-        path: "/settings",
+        path: "/dashboard/settings",
         icon: <IoMdSettings />
       },
       {
         title: "Help",
-        path: "/help",
+        path: "/dashboard/help",
         icon: <IoMdHelpCircle />
       },
       {
         title: "Logout",
-        path: "/logout",
+        path: "/dashboard/logout",
         icon: <IoMdLogOut />
       },
     ]
@@ -82,10 +83,14 @@ const sideMenu = [
 const SideNavbar = () => {
   return (
     <div className={styles.container}>
+      <div className={styles.user_details}>
+        <FaUserCircle size={28} />
+        <p>User 1</p>
+      </div>
       <ul className={styles.navlist}>
         {sideMenu.map(cate =>
           <li key={cate.title}>
-            <span> {cate.title}</span>
+            <span className={styles.title}> {cate.title}</span>
             {cate.list.map(ele => <MenuLink ele={ele} />)}
           </li>
         )}
