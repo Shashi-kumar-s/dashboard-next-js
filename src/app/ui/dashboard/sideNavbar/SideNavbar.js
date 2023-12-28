@@ -82,7 +82,7 @@ const sideMenu = [
 
 const SideNavbar = () => {
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.user_details}>
         <FaUserCircle size={28} />
         <p>User 1</p>
@@ -95,7 +95,7 @@ const SideNavbar = () => {
           </li>
         )}
       </ul>
-    </div>
+    </>
   )
 }
 

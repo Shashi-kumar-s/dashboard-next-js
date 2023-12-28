@@ -1,7 +1,7 @@
 import React from 'react'
 import SideNavbar from '../ui/dashboard/sideNavbar/SideNavbar'
 import Navbar from '../ui/dashboard/navbar/Navbar'
-import styles from "@/app/ui/dashboard/dashboard.module.css"
+import styles from "@/app/dashboard/layout.module.css"
 
 const layout = ({ children }) => {
     return (

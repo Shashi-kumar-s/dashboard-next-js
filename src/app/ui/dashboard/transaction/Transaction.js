@@ -1,44 +1,35 @@
 import styles from "@/app/ui/dashboard/transaction/transaction.module.css"
 import { FaUserCircle } from "react-icons/fa";
 
+const transactionDataTitle = ["Name", "Status", "Date", "Amount"]
+const transactionData = [
+  { id: "1", username: "Xyxyzxy", status: "Pending", date: "27.12.2023", amount: "3.200" },
+  { id: "2", username: "Abcde", status: "Done", date: "10.11.2023", amount: "1.400" },
+  { id: "3", username: "Johbne", status: "Cancelled", date: "30.09.2023", amount: "4.100" },
+  { id: "4", username: "Bbcde", status: "Cancelled", date: "20.08.2023", amount: "5.200" },
+]
+
 const Transaction = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Latest Transaction</h2>
       <table className={styles.table}>
         <thead>
-          <tr>
-            <td className={styles.tableTitle}>Name</td>
-            <td className={styles.tableTitle}>Status</td>
-            <td className={styles.tableTitle}>Date</td>
-            <td className={styles.tableTitle}>Amount</td>
+          <tr >
+            {transactionDataTitle.map(ele => <td key={ele} className={styles.tableTitle}>{ele}</td>)}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className={styles.user}><FaUserCircle size={24} /> Xyxyzxy</td>
-            <td><span className={`${styles.status} ${styles.pending}`}>Pending</span></td>
-            <td>27.12.2023</td>
-            <td>$ 3.200</td>
-          </tr>
-          <tr>
-            <td className={styles.user}><FaUserCircle size={24} /> Abcde</td>
-            <td><span className={`${styles.status} ${styles.done}`}>Done</span></td>
-            <td>10.11.2023</td>
-            <td>$ 1.200</td>
-          </tr>
-          <tr>
-            <td className={styles.user}><FaUserCircle size={24} /> Johbne</td>
-            <td><span className={`${styles.status} ${styles.cancelled}`}>Cancelled</span></td>
-            <td>30.09.2023</td>
-            <td>$ 4.200</td>
-          </tr>
-          <tr>
-            <td className={styles.user}><FaUserCircle size={24} /> Abcde</td>
-            <td><span className={`${styles.status} ${styles.done}`}>Done</span></td>
-            <td>10.11.2023</td>
-            <td>$ 1.200</td>
-          </tr>
+          {transactionData.map((ele) => {
+            return (
+              <tr key={ele.id}>
+                <td className={styles.user}><FaUserCircle size={24} />{ele.username}</td>
+                <td><span className={`${styles.stat} ${styles[ele.status]}`}>{ele.status}</span></td>
+                <td>{ele.date}</td>
+                <td>$ {ele.amount}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
