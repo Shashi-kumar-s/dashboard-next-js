@@ -1,8 +1,10 @@
+"use client"
 import styles from "@/app/ui/dashboard/user/user.module.css"
 import DashboardButton from "@/app/ui/dashboard/button/Button"
 import Pagination from "@/app/ui/dashboard/pagination/Pagination"
 import Search from "@/app/ui/dashboard/search/Search"
 import { FaUserCircle } from "react-icons/fa"
+import Link from "next/link"
 
 
 const userDetailDataTiltle = ["Name", "Email", "Created at", "Role", "Action"]
@@ -21,9 +23,9 @@ const Users = () => {
         <div>
           <Search placeholder="Search User" />
         </div>
-        <div>
+        <Link href={"/dashboard/users/add"}>
           <DashboardButton btnStyle={styles.btn} value={"Add New"} />
-        </div>
+        </Link>
       </div>
       <div className={styles.user_list}>
         <table className={styles.table}>
@@ -42,7 +44,7 @@ const Users = () => {
                     <td className={styles.date}>{ele.date}</td>
                     <td>{ele.userRole}</td>
                     <td>{ele.action}</td>
-                    <td><DashboardButton btnStyle={styles.view} value={"view"} /></td>
+                    <td><Link href={"/dashboard/users/view"}><DashboardButton btnStyle={styles.view} value={"view"} /></Link></td>
                     <td><DashboardButton btnStyle={styles.delete} value={"Delete"} /></td>
                   </tr>
                 </>

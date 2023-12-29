@@ -1,25 +1,27 @@
 "use client"
-import DashboardButton from "@/app/ui/dashboard/button/Button";
-import InputField from "@/app/ui/dashboard/input/InputField";
-import styles from "@/app/ui/dashboard/product/addProduct.module.css"
+import styles from "@/app/ui/dashboard/user/addUser.module.css"
+import DashboardButton from '@/app/ui/dashboard/button/Button';
+import InputField from '@/app/ui/dashboard/input/InputField';
 import { Formik, Form } from 'formik';
+import SelectField from "@/app/ui/dashboard/select/Select";
 
 const InputFieldData = [
     { name: "name", type: "text", placeholder: "Title" },
-    { name: "description", type: "text", placeholder: "Description" },
-    { name: "price", type: "number", placeholder: "Price" },
-    { name: "stock", type: "number", placeholder: "Stock" },
+    { name: "email", type: "email", placeholder: "Email" },
+    // { name: "price", type: "number", placeholder: "Price" },
+    // { name: "stock", type: "number", placeholder: "Stock" },
 ]
 
-const AddProduct = () => {
+const AddUser = () => {
     return (
         <div className={styles.container}>
             <Formik
                 initialValues={{
                     name: '',
-                    description: '',
-                    price: '',
-                    stock: '',
+                    email: '',
+                    Role: '',
+                    Action: '',
+                    date: '',
                 }}
                 onSubmit={async (values) => {
                     await new Promise((r) => setTimeout(r, 500));
@@ -30,9 +32,11 @@ const AddProduct = () => {
                     <div className={styles.main}>
                         {InputFieldData.map((ele) =>
                             <div key={ele.id} className={styles.form}>
-                                <InputField inputstyle={styles.input} id={ele.id} name={ele.name} placeholder={ele.placeholder} />
+                                <InputField type={ele.type} inputstyle={styles.input} id={ele.id} name={ele.name} placeholder={ele.placeholder} />
                             </div>
                         )}
+                        <SelectField name={"Role"} value={"Client"} value2={"Admin"} selectStyle={styles.select}/>
+                        <SelectField name={"Action"} value={"Active"} value2={"Passive"} selectStyle={styles.select}/>
                     </div>
                     <div className={styles.formbtn}>
                         <DashboardButton type={"submit"} value={"Submit"} btnStyle={styles.btn} />
@@ -43,4 +47,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default AddUser
