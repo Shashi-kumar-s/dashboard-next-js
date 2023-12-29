@@ -33,21 +33,21 @@
     gap: 10px;
 }
 
-.status {
+.stat {
     color: #fff;
     padding: 2px 5px;
     border-radius: 5px;
     font-size: 14px;
 }
 
-.pending {
+.Pending {
     background-color: #f7cb7375;
 }
 
-.done {
-    background-color: #afd6ee75;
+.Done {
+    background-color: #45e59375;
 }
 
-.cancelled {
+.Cancelled {
     background-color: #f7737375;
 }
