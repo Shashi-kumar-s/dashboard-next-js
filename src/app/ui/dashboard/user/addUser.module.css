@@ -15,7 +15,7 @@
 }
 
 .input {
-    padding:10px;
+    padding: 10px;
     font-size: 17px;
     border-radius: 5px;
     outline: none;
@@ -42,5 +42,14 @@
     background-color: blueviolet;
     color: #fff;
     cursor: pointer;
+}
 
+.select {
+    width: 98%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #2e374a;
+    border: none;
+    color: #fff;
+    outline: none;
 }

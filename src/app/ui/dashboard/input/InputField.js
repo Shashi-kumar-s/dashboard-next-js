@@ -1,8 +1,8 @@
 import { Field } from "formik"
 
-const InputField = ({ id, name, placeholder }) => {
+const InputField = ({ id, type,name, placeholder, inputstyle }) => {
     return (
-        <Field id={id} name={name} placeholder={placeholder} />
+        <Field type={type} className={inputstyle} id={id} name={name} placeholder={placeholder} />
     )
 }
 
