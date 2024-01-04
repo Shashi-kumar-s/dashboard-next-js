@@ -1,17 +1,23 @@
 .container {
-    background-color: var(--bgSoft);
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
 }
 
 .main {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
+    width: 400px;
+    background-color: var(--bgSoft);
+    padding: 40px 20px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .form {
-    width: 50%;
+    width: 100%;
 }
 
 .input {
@@ -37,26 +43,9 @@
     padding: 8px 20px;
     border-radius: 6px;
     border: none;
-    width: 20%;
+    width: 40%;
     font-weight: 600;
     background-color: blueviolet;
     color: #fff;
-    cursor: pointer;
-}
-
-.selectContainer {
-    display: flex;
-    gap: 12px;
-    width: 99%;
-}
-
-.select {
-    width: 95%;
-    padding: 12px;
-    border-radius: 8px;
-    background-color: #2e374a;
-    border: none;
-    color: #fff;
-    outline: none;
     cursor: pointer;
 }
