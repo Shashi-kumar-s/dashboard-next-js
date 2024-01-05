@@ -1,3 +1,4 @@
+"use client"
 import styles from "@/app/dashboard/dashboard.module.css"
 import Card from "../ui/dashboard/card/Card"
 import Chart from "../ui/dashboard/chart/Chart"

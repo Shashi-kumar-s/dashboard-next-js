@@ -1,8 +1,7 @@
-import { Field } from "formik"
 
-const InputField = ({ id, type,name, placeholder, inputstyle }) => {
+const InputField = ({ inputstyle, onchange, ...ele }) => {
     return (
-        <Field type={type} className={inputstyle} id={id} name={name} placeholder={placeholder} />
+        <input className={inputstyle} onChange={onchange} {...ele} />
     )
 }
 

@@ -1,16 +1,25 @@
-import styles from "@/app/ui/dashboard/select/select.module.css"
-import { Field } from "formik"
+import React from 'react';
 
-const SelectField = ({ name, value, value2, selectStyle }) => {
+const SelectField = ({ name, options, selectStyle, onchange,selectedValue }) => {
     return (
-        <div className={styles.container}>
-            <Field as="select" name={name} className={selectStyle}>
-                <option>- - Select - -</option>
-                <option value={value}>{value}</option>
-                <option value={value2}>{value2}</option>
-            </Field>
-        </div>
-    )
-}
+        <select
+            name={name}
+            className={selectStyle}
+            onChange={onchange}
+            value={selectedValue} 
+        >
+            <option value="select" disabled="disabled">
+                - - select - -
+            </option>
+            {options.map((option) => {
+                return (
+                    <option key={option.id} value={option.value}>
+                        {option.label}
+                    </option>
+                )
+            })}
+        </select>
+    );
+};
 
-export default SelectField
+export default SelectField;

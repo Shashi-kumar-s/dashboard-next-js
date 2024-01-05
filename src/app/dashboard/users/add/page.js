@@ -2,49 +2,87 @@
 import styles from "@/app/ui/dashboard/user/addUser.module.css"
 import DashboardButton from '@/app/ui/dashboard/button/Button';
 import InputField from '@/app/ui/dashboard/input/InputField';
-import { Formik, Form } from 'formik';
+import axios from "axios";
+import { useState } from "react";
 import SelectField from "@/app/ui/dashboard/select/Select";
+import { redirect, useRouter } from "next/navigation";
 
 const InputFieldData = [
-    { name: "name", type: "text", placeholder: "Title" },
-    { name: "email", type: "email", placeholder: "Email" },
-    // { name: "price", type: "number", placeholder: "Price" },
-    // { name: "stock", type: "number", placeholder: "Stock" },
+    { id: "1", name: "name", type: "text", placeholder: "Title" },
+    { id: "2", name: "email", type: "email", placeholder: "Email" },
 ]
+const options = [
+    { id: "1", value: "true", label: "Yes" },
+    { id: "2", value: "false", label: "No" },
+];
+
+
 
 const AddUser = () => {
+    const router = useRouter()
+    const [userData, setUserData] = useState({ name: "", email: "", IsAdmin: "select", IsActive: "select" })
+
+    const fetchData = async (values) => {
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/addUser`, values, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+    };
+
+
+
+    const handleChange = (e) => {
+        const { name, value, type } = e.target;
+        setUserData((prevUserData) => ({
+            ...prevUserData,
+            [name]: type === 'checkbox' ? e.target.checked : value,
+        }));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        fetchData(userData);
+        setUserData({ name: "", email: "", IsAdmin: "", IsActive: "" });
+        router.push("/dashboard/users")
+    }
+
     return (
         <div className={styles.container}>
-            <Formik
-                initialValues={{
-                    name: '',
-                    email: '',
-                    Role: '',
-                    Action: '',
-                    date: '',
-                }}
-                onSubmit={async (values) => {
-                    await new Promise((r) => setTimeout(r, 500));
-                    alert(JSON.stringify(values, null, 2));
-                }}
-            >
-                <Form>
-                    <div className={styles.main}>
-                        {InputFieldData.map((ele) =>
-                            <div key={ele.id} className={styles.form}>
-                                <InputField type={ele.type} inputstyle={styles.input} id={ele.id} name={ele.name} placeholder={ele.placeholder} />
-                            </div>
+            <form onSubmit={handleSubmit}>
+                <div className={styles.main}>
+                    {InputFieldData.map((ele) =>
+                        <div key={ele.id} className={styles.form}>
+                            <InputField
+                                {...ele}
+                                inputstyle={styles.input}
+                                value={userData[ele.name]}
+                                onchange={handleChange} />
+                        </div>
+                    )}
+                    <div className={styles.selectContainer}>
+                        {["IsAdmin", "IsActive"].map((name) =>
+                            <SelectField
+                                key={name}
+                                name={name}
+                                options={options}
+                                selectStyle={styles.select}
+                                onchange={handleChange}
+                                selectedValue={userData[name]}
+                            />
                         )}
-                        <SelectField name={"Role"} value={"Client"} value2={"Admin"} selectStyle={styles.select}/>
-                        <SelectField name={"Action"} value={"Active"} value2={"Passive"} selectStyle={styles.select}/>
                     </div>
-                    <div className={styles.formbtn}>
-                        <DashboardButton type={"submit"} value={"Submit"} btnStyle={styles.btn} />
-                    </div>
-                </Form>
-            </Formik>
+                </div>
+                <div className={styles.formbtn}>
+                    <DashboardButton type={"submit"} value={"Submit"} btnStyle={styles.btn} onclick={handleSubmit} />
+                </div>
+            </form>
         </div>
     )
 }
 
-export default AddUser
+export default AddUser;

@@ -1,8 +1,9 @@
 
 export default function Home() {
+  console.log(process.env);
   return (
     <main>
-     home
+      hello
     </main>
   )
 }
