@@ -1,3 +1,4 @@
+"use client"
 import styles from "@/app/ui/dashboard/transaction/transaction.module.css"
 import { FaUserCircle } from "react-icons/fa";
 

@@ -7,7 +7,10 @@ import { usePathname } from "next/navigation";
 const MenuLink = ({ ele }) => {
     const pathname = usePathname()
     return (
-        <Link href={ele.path} className={`${styles.container} ${pathname === ele.path && styles.active}`}>{ele.icon}{ele.title}</Link>
+        <Link href={ele.path}
+            className={`${styles.container} ${pathname === ele.path && styles.active}`}>
+            {ele.icon}{ele.title}
+        </Link>
     )
 }
 

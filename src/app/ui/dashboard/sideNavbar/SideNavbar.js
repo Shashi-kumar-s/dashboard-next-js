@@ -1,3 +1,4 @@
+"use client"
 import styles from "@/app/ui/dashboard/sideNavbar/sideNavbar.module.css"
 import { MdDashboard } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
@@ -71,11 +72,11 @@ const sideMenu = [
         path: "/dashboard/help",
         icon: <IoMdHelpCircle />
       },
-      {
-        title: "Logout",
-        path: "/dashboard/logout",
-        icon: <IoMdLogOut />
-      },
+      // {
+      //   title: "Logout",
+      //   // path: "/dashboard/logout",
+      //   icon: <IoMdLogOut />
+      // },
     ]
   },
 ]
@@ -94,6 +95,7 @@ const SideNavbar = () => {
             {cate.list.map(ele => <MenuLink ele={ele} />)}
           </li>
         )}
+        <li><IoMdLogOut /> Logout</li>
       </ul>
     </>
   )
