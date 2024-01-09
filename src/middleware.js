@@ -1,7 +1,8 @@
-import { sessionStatus } from "./utils/session";
 import { NextResponse } from "next/server";
+import { sessionStatus } from "./utils/session";
 
-const protectedRoutes = ['/dashboard','/dashboard/users']
+const protectedRoutes = ['/dashboard', '/dashboard/users']
+
 
 export default function middleware(request) {
     if (!sessionStatus && protectedRoutes.includes(request.nextUrl.pathname)) {
