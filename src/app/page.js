@@ -1,9 +1,10 @@
+import styles from "@/app/app.module.css"
+import Link from "next/link";
 
 export default function Home() {
-  console.log(process.env);
   return (
-    <main>
-      hello
+    <main className={styles.container}>
+      <Link href={"/login"} className={styles.getStart}>Get Start</Link>
     </main>
   )
 }

@@ -4,6 +4,9 @@ import Navbar from '../ui/dashboard/navbar/Navbar'
 import styles from "@/app/dashboard/layout.module.css"
 
 const layout = ({ children }) => {
+
+
+    
     return (
         <div className={styles.container}>
             <div className={styles.menu}>
