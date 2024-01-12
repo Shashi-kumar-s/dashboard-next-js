@@ -5,7 +5,8 @@ import InputField from '@/app/ui/dashboard/input/InputField';
 import axios from "axios";
 import { useState } from "react";
 import SelectField from "@/app/ui/dashboard/select/Select";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 
 const InputFieldData = [
     { id: "1", name: "name", type: "text", placeholder: "Title" },
@@ -17,10 +18,15 @@ const options = [
 ];
 
 
-
 const AddUser = () => {
     const router = useRouter()
-    const [userData, setUserData] = useState({ name: "", email: "", IsAdmin: "select", IsActive: "select" })
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        IsAdmin: "select",
+        IsActive: "select"
+    })
+
 
     const fetchData = async (values) => {
         try {
@@ -65,9 +71,9 @@ const AddUser = () => {
                         </div>
                     )}
                     <div className={styles.selectContainer}>
-                        {["IsAdmin", "IsActive"].map((name) =>
+                        {["IsAdmin", "IsActive"].map((name, i) =>
                             <SelectField
-                                key={name}
+                                key={i}
                                 name={name}
                                 options={options}
                                 selectStyle={styles.select}

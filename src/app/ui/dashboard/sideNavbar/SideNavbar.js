@@ -12,6 +12,8 @@ import { MdOutlineProductionQuantityLimits } from "react-icons/md"
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs"
 import { FaUserCircle } from "react-icons/fa";
 import MenuLink from "./menuLink/MenuLink";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const sideMenu = [
   {
@@ -72,16 +74,19 @@ const sideMenu = [
         path: "/dashboard/help",
         icon: <IoMdHelpCircle />
       },
-      // {
-      //   title: "Logout",
-      //   // path: "/dashboard/logout",
-      //   icon: <IoMdLogOut />
-      // },
     ]
   },
 ]
 
 const SideNavbar = () => {
+  const router = useRouter()
+
+  const handleLogOut = () => {
+    Cookies.remove('token');
+    router.push("/login")
+  }
+
+
   return (
     <>
       <div className={styles.user_details}>
@@ -92,10 +97,10 @@ const SideNavbar = () => {
         {sideMenu.map(cate =>
           <li key={cate.title}>
             <span className={styles.title}> {cate.title}</span>
-            {cate.list.map(ele => <MenuLink ele={ele} />)}
+            {cate.list.map(ele => <MenuLink key={ele.title} ele={ele} />)}
           </li>
         )}
-        <li><IoMdLogOut /> Logout</li>
+        <li onClick={handleLogOut} className={styles.logout}><IoMdLogOut /> Logout</li>
       </ul>
     </>
   )

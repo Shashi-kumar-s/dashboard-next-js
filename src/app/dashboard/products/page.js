@@ -10,15 +10,15 @@ import axios from "axios"
 
 const productsDataTiltle = ["Title", "Description", "Price", "Stock"]
 const Products = () => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const recordsPerPage = 5;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = data.slice(firstIndex, lastIndex)
-  const nPage = Math.ceil(data.length / recordsPerPage)
-  const pageNumbers = [...Array(nPage + 1).keys()].slice(1)
-
+  const firstIndex = (currentPage - 1) * recordsPerPage;
+  const records = data.slice(firstIndex, firstIndex + recordsPerPage);
+  const nPage = Math.ceil((data && data.length) / recordsPerPage);
+  const pageNumbers = [...Array(nPage).keys()].map((num) => num + 1);
+  const [result, setResult] = useState([])
 
   const fetchData = async () => {
     try {
@@ -46,12 +46,28 @@ const Products = () => {
   const handleDelete = (id) => {
     deleteProductData(id)
   }
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filterData = () => {
+    return records.filter((ele) => ele.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  };
+
+  useEffect(() => {
+    if (searchQuery.length >= 2) {
+      setResult(filterData())
+    } else { setResult(records) }
+  }, [searchQuery, data, currentPage])
+
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.main}>
           <div>
-            <Search placeholder="Search User" />
+            <Search placeholder="Search User" value={searchQuery} onchange={handleSearch} />
           </div>
           <Link href="/dashboard/products/addProduct">
             <DashboardButton btnStyle={styles.btn} value={"Add New"} />
@@ -65,7 +81,7 @@ const Products = () => {
               </tr>
             </thead>
             <tbody>
-              {records.map((ele) => {
+              {result.map((ele) => {
                 return (
                   <tr key={ele._id}>
                     <td className={styles.itemname}>{ele.name}</td>

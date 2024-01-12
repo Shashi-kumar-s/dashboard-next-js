@@ -13,3 +13,16 @@
     gap: 15px;
     margin: 10px 0 20px;
 }
+
+.logout {
+    display: flex;
+    cursor: pointer;
+    padding: 12px;
+    align-items: center;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.logout:hover {
+    background-color: #2e374a;
+}

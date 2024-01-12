@@ -5,21 +5,23 @@ import Pagination from "@/app/ui/dashboard/pagination/Pagination"
 import Search from "@/app/ui/dashboard/search/Search"
 import { FaUserCircle } from "react-icons/fa"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import axios from "axios"
 
 
 const userDetailDataTiltle = ["Name", "Email", "Role", "Action"]
 
 const Users = () => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const recordsPerPage = 5;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = Array.isArray(data) ? data.slice(firstIndex, lastIndex) : [];
-  const nPage = Math.max(1, Math.ceil((data && data.length) / recordsPerPage));
-  const pageNumbers = Array.from({ length: nPage }, (_, index) => index + 1);
+  const firstIndex = (currentPage - 1) * recordsPerPage;
+  const records = data.slice(firstIndex, firstIndex + recordsPerPage);
+  const nPage = Math.ceil((data && data.length) / recordsPerPage);
+  const pageNumbers = [...Array(nPage).keys()].map((num) => num + 1);
+  const [result, setResult] = useState([])
+
 
 
   const fetchData = async () => {
@@ -31,6 +33,7 @@ const Users = () => {
     }
   };
 
+
   const deleteUserData = async (id) => {
     try {
       const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/deleteUserById/${id}`);
@@ -40,7 +43,7 @@ const Users = () => {
     }
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     fetchData()
   }, [])
 
@@ -48,11 +51,27 @@ const Users = () => {
     deleteUserData(id)
   }
 
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filterData = () => {
+    return records.filter((ele) => ele.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  };
+
+  useEffect(() => {
+    if (searchQuery.length >= 2) {
+      setResult(filterData())
+    } else { setResult(records) }
+  }, [searchQuery, data, currentPage])
+
+
   return (
     <div className={styles.container}>
       <div className={styles.main}>
         <div>
-          <Search placeholder="Search User" />
+          <Search placeholder="Search User" value={searchQuery} onchange={handleSearch} />
         </div>
         <Link href={"/dashboard/users/add"}>
           <DashboardButton btnStyle={styles.btn} value={"Add New"} />
@@ -62,18 +81,18 @@ const Users = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              {userDetailDataTiltle.map(ele => <td key={ele} className={styles.title}>{ele}</td>)}
+              {userDetailDataTiltle.map((ele, i) => <td key={i} className={styles.title}>{ele}</td>)}
             </tr>
           </thead>
           <tbody>
-            {records.map((ele) => {
+            {result.map((ele) => {
               return (
                 <tr key={ele.id}>
                   <td className={styles.user}><FaUserCircle size={24} />{ele.name}</td>
                   <td className={styles.email}>{ele.email}</td>
                   <td>{ele.IsAdmin ? "Admin" : "Client"}</td>
                   <td>{ele.IsActive ? "Active" : "Passive"}</td>
-                  <td><Link href={`/dashboard/users/${ele._id}`}><DashboardButton btnStyle={styles.view} value={"view"}/></Link></td>
+                  <td><Link href={`/dashboard/users/${ele._id}`}><DashboardButton btnStyle={styles.view} value={"view"} /></Link></td>
                   <td><DashboardButton btnStyle={styles.delete} value={"Delete"} onclick={() => handleDelete(ele._id)} /></td>
                 </tr>
               )
